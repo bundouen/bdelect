@@ -18,35 +18,35 @@ class HomeBinding extends Bindings {
     //   permanent: true,
     // );
     Get.lazyPut(() => ProductController(), fenix: true);
-    // Get.put<SliderController>(
-    //   SliderController(),
-    //   permanent: true,
-    // );
-    Get.lazyPut(() => SliderController(), fenix: true);
-    // Get.put<GroupController>(
-    //   GroupController(),
-    //   permanent: true,
-    // );
-    Get.lazyPut(() => GroupController(), fenix: true);
-    // Get.put<BrandController>(
-    //   BrandController(),
-    //   permanent: true,
-    // );
-    Get.lazyPut(() => BrandController(), fenix: true);
-    // Get.put<CategoryController>(
-    //   CategoryController(),
-    //   permanent: true,
-    // );
-    Get.lazyPut(() => CategoryController(), fenix: true);
-    // Get.put<ProductNameController>(
-    //   ProductNameController(),
-    //   permanent: true,
-    // );
-    Get.lazyPut(() => ProductNameController(), fenix: true);
-    // Get.put<UserController>(
-    //   UserController(),
-    //   permanent: true,
-    // );
-    Get.lazyPut(() => UserController(), fenix: true);
+    Get.put<SliderController>(
+      SliderController(),
+      permanent: true,
+    );
+    // Get.lazyPut(() => SliderController(), fenix: true);
+    Get.put<GroupController>(
+      GroupController(),
+      permanent: true,
+    );
+    // Get.lazyPut(() => GroupController(), fenix: true);
+    Get.put<BrandController>(
+      BrandController(),
+      permanent: true,
+    );
+    // Get.lazyPut(() => BrandController(), fenix: true);
+    Get.put<CategoryController>(
+      CategoryController(),
+      permanent: true,
+    );
+    // Get.lazyPut(() => CategoryController(), fenix: true);
+    Get.put<ProductNameController>(
+      ProductNameController(),
+      permanent: true,
+    );
+    // Get.lazyPut(() => ProductNameController(), fenix: true);
+    Get.put<UserController>(
+      UserController(),
+      permanent: true,
+    );
+    // Get.lazyPut(() => UserController(), fenix: true);
   }
 }
