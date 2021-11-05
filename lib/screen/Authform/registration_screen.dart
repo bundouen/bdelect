@@ -1,6 +1,8 @@
 import 'package:bdelect/constants.dart';
-import 'package:bdelect/controller/user_controller.dart';
-import 'package:bdelect/screen/Authform/login_screen.dart';
+// import 'package:bdelect/controller/user_controller.dart';
+
+import 'package:bdelect/screen/otp_page_verify.dart';
+import 'package:bdelect/service/user_service.dart';
 import 'package:bdelect/widget/custom_toast.dart';
 
 import 'package:flutter/material.dart';
@@ -29,8 +31,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final passwordEditingController = new TextEditingController();
   final confirmPasswordEditingController = new TextEditingController();
   final fToast = FToast();
-  final UserController _userController =
-      Get.put<UserController>(UserController());
+  // final UserController _userController =
+  //     Get.put<UserController>(UserController());
+  final UserService _userService = UserService();
   bool hidePass = true;
   bool hideConPass = true;
   FocusNode nodeName = FocusNode();
@@ -406,53 +409,70 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       setState(() {
         isApiCallProcess = true;
       });
-      var result =
-          await _userController.fetchRegister(userName, phone, password);
-      if (result == "true") {
-        showFlutterToast(Colors.indigo, kSecondaryColor, kSecondaryColor,
-            _userController.msgRegistered, Icons.check);
+      _userService.otpLogin(phone).then((respone) async {
         setState(() {
           isApiCallProcess = false;
         });
-        Get.offNamed(LoginScreen.routeName);
-      } else if (result == 'name') {
-        showFlutterToast(kRColor, kSecondaryColor, kSecondaryColor,
-            _userController.msgRegistered, Icons.close);
-        // firstNameEditingController.text = "";
-        // FocusScope.of(context).requestFocus(nodeName);
-        nodeName.requestFocus();
-        setState(() {
-          colorName = false;
-          isApiCallProcess = false;
-        });
-      } else if (result == 'phone') {
-        showFlutterToast(kRColor, kSecondaryColor, kSecondaryColor,
-            _userController.msgRegistered, Icons.close);
-        // phoneEditingController.text = "";
-        nodePhone.requestFocus();
-        setState(() {
-          colorPhone = false;
-          isApiCallProcess = false;
-        });
-      } else if (result == 'false') {
-        showFlutterToast(kRColor, kSecondaryColor, kSecondaryColor,
-            _userController.msgRegistered, Icons.close);
-        // firstNameEditingController.clear();
-        // phoneEditingController.clear();
-        nodeName.requestFocus();
-        setState(() {
-          colorName = false;
-          colorPhone = false;
-          isApiCallProcess = false;
-        });
-      } else {
-        showFlutterToast(kRColor, kSecondaryColor, kSecondaryColor,
-            _userController.msgRegistered, Icons.close);
-        phoneEditingController.text = "";
-        setState(() {
-          isApiCallProcess = false;
-        });
-      }
+        if (respone.data != null) {
+          print(respone.message);
+          print(respone.data);
+
+          Get.off(
+            () => OtpVerifyPage(
+              mobileNo: phone,
+              otpHash: respone.data,
+            ),
+          );
+        }
+      });
+
+      // var result =
+      //     await _userController.fetchRegister(userName, phone, password);
+      // if (result == "true") {
+      //   showFlutterToast(Colors.indigo, kSecondaryColor, kSecondaryColor,
+      //       _userController.msgRegistered, Icons.check);
+      //   setState(() {
+      //     isApiCallProcess = false;
+      //   });
+      //   Get.offNamed(LoginScreen.routeName);
+      // } else if (result == 'name') {
+      //   showFlutterToast(kRColor, kSecondaryColor, kSecondaryColor,
+      //       _userController.msgRegistered, Icons.close);
+      //   // firstNameEditingController.text = "";
+      //   // FocusScope.of(context).requestFocus(nodeName);
+      //   nodeName.requestFocus();
+      //   setState(() {
+      //     colorName = false;
+      //     isApiCallProcess = false;
+      //   });
+      // } else if (result == 'phone') {
+      //   showFlutterToast(kRColor, kSecondaryColor, kSecondaryColor,
+      //       _userController.msgRegistered, Icons.close);
+      //   // phoneEditingController.text = "";
+      //   nodePhone.requestFocus();
+      //   setState(() {
+      //     colorPhone = false;
+      //     isApiCallProcess = false;
+      //   });
+      // } else if (result == 'false') {
+      //   showFlutterToast(kRColor, kSecondaryColor, kSecondaryColor,
+      //       _userController.msgRegistered, Icons.close);
+      //   // firstNameEditingController.clear();
+      //   // phoneEditingController.clear();
+      //   nodeName.requestFocus();
+      //   setState(() {
+      //     colorName = false;
+      //     colorPhone = false;
+      //     isApiCallProcess = false;
+      //   });
+      // } else {
+      //   showFlutterToast(kRColor, kSecondaryColor, kSecondaryColor,
+      //       _userController.msgRegistered, Icons.close);
+      //   phoneEditingController.text = "";
+      //   setState(() {
+      //     isApiCallProcess = false;
+      //   });
+      // }
     } else {
       showFlutterToast(kPrimaryColor, kSecondaryColor, kSecondaryColor,
           "បំពេញមិនបានត្រឹមត្រូវ..!", Icons.edit_off);

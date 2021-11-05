@@ -1,3 +1,4 @@
+import 'package:bdelect/screen/otp_page_verify.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'home_screen.dart';
@@ -60,6 +61,10 @@ class MainScreen extends StatelessWidget {
         GetPage(
           name: RegistrationScreen.routeName,
           page: () => RegistrationScreen(),
+        ),
+        GetPage(
+          name: OtpVerifyPage.routeName,
+          page: () => OtpVerifyPage(),
         ),
       ],
     );

@@ -1,10 +1,14 @@
 import 'dart:convert';
 
+import 'package:bdelect/config.dart';
+import 'package:bdelect/model/otp_login_model.dart';
 import 'package:get/get.dart';
 
 import '../repository/repository.dart';
+import 'package:http/http.dart' as http;
 
 class UserService extends GetConnect {
+  static var client = http.Client();
   Repository _repository = Repository();
   UserService() {
     _repository = Repository();
@@ -85,5 +89,36 @@ class UserService extends GetConnect {
     } catch (exception) {
       return Future.error(exception.toString());
     }
+  }
+
+  Future<OtpLoginResponeModel> otpLogin(String mobileNo) async {
+    Map<String, dynamic> body = {
+      "phone": mobileNo,
+    };
+     Map<String, String> hearders = {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+    };
+    // var url = Uri.http(Config.apiURL, Config.otpLoginApi);
+    var respone =
+        await _repository.httpPost("/user/otplogin", hearders, body);
+    return otpLoginResponeModel(respone.body);
+  }
+
+  Future<OtpLoginResponeModel> verifyOTP(
+    String mobileNo,
+    String otpHash,
+    String otpCode,
+  ) async {
+    Map<String, String> body = {
+      'phone': mobileNo,
+      "otp": otpCode,
+      "hash": otpHash
+    };
+    Map<String, String> requestHeaders = {'Content-Type': 'application/json'};
+
+    var respone =
+        await _repository.httpPost(Config.otpVerifyApi, requestHeaders, body);
+    return otpLoginResponeModel(respone.body);
   }
 }

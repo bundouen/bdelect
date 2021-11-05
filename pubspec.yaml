@@ -42,6 +42,7 @@ dependencies:
   pull_to_refresh: ^2.0.0
   shimmer: ^2.0.0
   sliding_up_panel: ^2.0.0+1
+  sms_autofill: ^2.2.0
   snippet_coder_utils: ^1.0.9
 
 dev_dependencies:
