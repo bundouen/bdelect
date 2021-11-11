@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "437661295576",
+    "firebase_url": "https://firbasmyshop.firebaseio.com",
+    "project_id": "firbasmyshop",
+    "storage_bucket": "firbasmyshop.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:437661295576:android:904473260a27345556c8ad",
+        "android_client_info": {
+          "package_name": "com.example.bdelect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "437661295576-06pf1agi20pjv20l3plm0uijgdch1vhj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxDaFxRzbAeVOhCfUi2m26QHW3dQ5NKvk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "437661295576-06pf1agi20pjv20l3plm0uijgdch1vhj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

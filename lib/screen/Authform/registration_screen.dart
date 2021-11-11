@@ -122,19 +122,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       autofocus: false,
       focusNode: nodePhone,
       controller: phoneEditingController,
-      keyboardType: TextInputType.phone,
+      keyboardType: TextInputType.name,
       validator: (value) {
         // if (value!.isEmpty) {
         //   return ("Second Name cannot be Empty");
         // }
-        String patttern = r'(^(?:[+0]9)?[0-9]{9,10}$)';
-        RegExp regExp = new RegExp(patttern);
+        // String patttern = r'(^(?:[+0]9)?[0-9]{9,10}$)';
+        // RegExp regExp = new RegExp(patttern);
         if (value!.length == 0) {
           return 'បញ្ជូលលេខទូរស័ព្ទ';
         }
-        if (!regExp.hasMatch(value)) {
-          return 'លេខទូរស័ព្ទមិនត្រឹមត្រូវ';
-        }
+        // if (!regExp.hasMatch(value)) {
+        //   return 'លេខទូរស័ព្ទមិនត្រឹមត្រូវ';
+        // }
         // if (colorPhone == false) {
         //   return ("Already Exist");
         // }
@@ -170,7 +170,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         // hintText: "លេខទូរស័ព្ទ",
         labelText: "លេខទូរស័ព្ទ",
-
+        hintText: "+85512345678",
         labelStyle: new TextStyle(
           fontFamily: khmerSiemreap,
           package: packageKhmer,
