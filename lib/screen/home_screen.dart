@@ -1,16 +1,13 @@
 import 'package:bdelect/controller/slidercontroller.dart';
 import 'package:bdelect/controller/user_controller.dart';
-// import 'package:flutter/src/widgets/framework.dart';
 
 import 'package:flutter/rendering.dart';
-import '../widget/brand/brand_view.dart';
-
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:flutter_icons/flutter_icons.dart';
 
+import '../widget/brand/brand_view.dart';
 import '../constants.dart';
 import '../widget/search_icon.dart';
 import '../widget/shopping_cart.dart';

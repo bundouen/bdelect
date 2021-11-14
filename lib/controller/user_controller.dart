@@ -18,7 +18,36 @@ class UserController extends GetxController {
   void onInit() {
     super.onInit();
   }
-  
+  Future<String> fetchCheckRegisterResult(
+    String userName,
+    String phone,
+    
+  ) async {
+    try {
+      var resp = await _userService.checkRegisterResult(
+        userName,
+        phone,
+      );
+      if (resp == 'true') {
+        msgRegistered = "​បង្កើតគនេយ្យបានជោគជ័យ";
+        return 'true';
+      } else if (resp == 'name') {
+        msgRegistered = "​ឈ្មោះ​មានម្តងហើយ!";
+        return 'name';
+      } else if (resp == 'phone') {
+        msgRegistered = "​លេខទូរស័រព្ទមានម្តងហើយ!";
+        return 'phone';
+      } else if (resp == 'false') {
+        msgRegistered = "​ឈ្មោះនិងលេខទូរស័រព្ទ មានម្តងហើយ!";
+        return 'false';
+      } else {
+        msgRegistered = "​មានបញ្ហា...!!!";
+        return ('error');
+      }
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
 
 //Register
   Future<String> fetchRegister(
