@@ -1,6 +1,13 @@
 import 'package:bdelect/constants.dart';
+import 'package:bdelect/controller/user_controller.dart';
+import 'package:bdelect/screen/Authform/login_screen.dart';
+import 'package:bdelect/widget/custom_toast.dart';
+
 import 'package:firebase_phone_auth_handler/firebase_phone_auth_handler.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
+
 import 'package:pinput/pin_put/pin_put.dart';
 
 // ignore: must_be_immutable
@@ -20,12 +27,24 @@ class OTPScreen extends StatefulWidget {
 
 class _OTPScreenState extends State<OTPScreen> {
   String? _enteredOTP;
+  bool duration = false;
+  bool sentFail = false;
+  String btResent = "ផ្ញើរម្តទៀត";
+  final fToast = FToast();
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final TextEditingController _pinOTPCodeController = TextEditingController();
 
+  final UserController _userController = Get.find<UserController>();
+
   final FocusNode _pinCodeFocus = FocusNode();
+
+  @override
+  void initState() {
+    fToast.init(context);
+    super.initState();
+  }
 
   final BoxDecoration pinOTPCodeDecoration = BoxDecoration(
     color: Colors.blueAccent,
@@ -33,21 +52,47 @@ class _OTPScreenState extends State<OTPScreen> {
     border: Border.all(color: Colors.grey),
   );
 
+  registerToDB() async {
+    await _userController
+        .fetchRegister(widget.userName, widget.phone, widget.password)
+        .then((value) {
+      if (value == 'true') {
+        showFlutterToast(Colors.indigo, kSecondaryColor, kSecondaryColor,
+            _userController.msgRegistered, Icons.check);
+        Get.offNamed(LoginScreen.routeName);
+      }
+    });
+  }
+
+  void showFlutterToast(Color backgColor, Color colorTxt, Color colorIcon,
+          String text, IconData iconData) =>
+      fToast.showToast(
+        child: customFToast(backgColor, colorTxt, colorIcon, text, iconData),
+        gravity: ToastGravity.TOP,
+        // positionedToastBuilder: (context, child) =>
+        //     Positioned(child: child, top: 150, left: 0, right: 0),
+      );
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: FirebasePhoneAuthHandler(
         phoneNumber: widget.phone,
-        timeOutDuration: const Duration(seconds: 60),
+        timeOutDuration: Duration(seconds: 100),
         onLoginSuccess: (userCredential, autoVerified) async {
-          print(autoVerified
-              ? "OTP was fetched automatically"
-              : "OTP was verified manually");
+          setState(() {
+            sentFail = false;
+          });
+          // print(autoVerified
+          //     ? "OTP was fetched automatically"
+          //     : "OTP was verified manually");
 
-          print("Login Success BBBBB UID: ${userCredential.user?.uid}");
+          // print("Login Success BBBBB UID: ${userCredential.user?.uid}");
         },
         onLoginFailed: (authException) {
-          print("An error occurred: ${authException.message}");
+          setState(() {
+            sentFail = true;
+          });
+          // print("An error occurred: ${authException.message}");
 
           // handle error further if needed
         },
@@ -69,17 +114,27 @@ class _OTPScreenState extends State<OTPScreen> {
                                   color: kPrimaryColor,
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      controller.timerIsActive
-                                          ? "${controller.timerCount.inSeconds + 1}s"
-                                          : "ផ្ញើរម្តទៀត",
-                                      style: TextStyle(
-                                        color: kSecondaryColor,
-                                        fontSize: 18,
-                                        fontFamily: khmerSiemreap,
-                                        package: packageKhmer,
-                                      ),
-                                    ),
+                                    child: duration == false
+                                        ? Text(
+                                            controller.timerIsActive
+                                                ? "${controller.timerCount.inSeconds}s"
+                                                : btResent,
+                                            style: TextStyle(
+                                              color: kSecondaryColor,
+                                              fontSize: 18,
+                                              fontFamily: khmerSiemreap,
+                                              package: packageKhmer,
+                                            ),
+                                          )
+                                        : Text(
+                                            "ជោគជ័យ",
+                                            style: TextStyle(
+                                              color: kSecondaryColor,
+                                              fontSize: 18,
+                                              fontFamily: khmerSiemreap,
+                                              package: packageKhmer,
+                                            ),
+                                          ),
                                   ),
                                 ),
                               ),
@@ -118,6 +173,7 @@ class _OTPScreenState extends State<OTPScreen> {
                                 ),
                                 eachFieldWidth: 40,
                                 eachFieldHeight: 55,
+                                autofocus: true,
                                 focusNode: _pinCodeFocus,
                                 controller: _pinOTPCodeController,
                                 submittedFieldDecoration: pinOTPCodeDecoration,
@@ -132,13 +188,25 @@ class _OTPScreenState extends State<OTPScreen> {
                                           otp: _enteredOTP!);
                                       // Incorrect OTP
                                       if (!res) {
-                                        print(
-                                          "Please enter the correct OTP sent to ${widget.phone}",
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            backgroundColor: kRColor,
+                                            content: Text(
+                                              "សូមបញ្ជូលលេខកូដត្រឹមត្រូវ",
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontFamily: khmerSiemreap,
+                                                  package: packageKhmer,
+                                                  color: kSecondaryColor),
+                                            ),
+                                          ),
                                         );
                                       } else {
-                                        print(
-                                          "AAAAAAAAAAAAA Successfuly",
-                                        );
+                                        setState(() {
+                                          duration = true;
+                                        });
+                                        registerToDB();
                                       }
                                     }
                                   } catch (e) {
@@ -157,24 +225,49 @@ class _OTPScreenState extends State<OTPScreen> {
                         ),
                       ),
                     )
-                  : Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        CircularProgressIndicator(),
-                        SizedBox(height: 50),
-                        Center(
-                          child: Text(
-                            "កំពុងផ្ញើរកូដ...",
-                            style: TextStyle(
-                                fontSize: 25,
-                                fontFamily: khmerSiemreap,
-                                package: packageKhmer,
-                                color: kPrimaryColor),
-                          ),
+                  : sentFail == false
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            CircularProgressIndicator(),
+                            SizedBox(height: 50),
+                            Center(
+                              child: Text(
+                                "កំពុងផ្ញើរកូដ...",
+                                style: TextStyle(
+                                    fontSize: 25,
+                                    fontFamily: khmerSiemreap,
+                                    package: packageKhmer,
+                                    color: kPrimaryColor),
+                              ),
+                            ),
+                          ],
+                        )
+                      : Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Center(
+                              child: Text(
+                                "សូមប្តូរលេខទូរស័ព្ទហើយព្យាយាមម្តងទៀត!",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontFamily: khmerSiemreap,
+                                    package: packageKhmer,
+                                    color: kRColor),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: IconButton(
+                                onPressed: () {
+                                  Get.back();
+                                },
+                                icon: Icon(Icons.arrow_back_sharp),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
             ),
           );
         },

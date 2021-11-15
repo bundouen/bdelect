@@ -125,7 +125,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       autofocus: false,
       focusNode: nodePhone,
       controller: phoneEditingController,
-      keyboardType: TextInputType.name,
+      keyboardType: TextInputType.number,
       validator: (value) {
         // if (value!.isEmpty) {
         //   return ("Second Name cannot be Empty");
@@ -173,7 +173,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         // hintText: "លេខទូរស័ព្ទ",
         labelText: "លេខទូរស័ព្ទ",
-        hintText: "+85512345678",
         labelStyle: new TextStyle(
           fontFamily: khmerSiemreap,
           package: packageKhmer,
@@ -324,7 +323,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           onPressed: () {
             signUp(
               firstNameEditingController.text,
-              phoneEditingController.text,
+              int.parse(phoneEditingController.text),
               passwordEditingController.text,
             );
           },
@@ -425,7 +424,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   void signUp(
     String userName,
-    String phone,
+    int phone,
     String password,
   ) async {
     if (_formKey.currentState!.validate()) {
@@ -433,8 +432,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         isApiCallProcess = true;
       });
 
-      var result =
-          await _userController.fetchCheckRegisterResult(userName, phone);
+      var result = await _userController.fetchCheckRegisterResult(
+          userName, phone.toString());
       print(result);
       if (result == "true") {
         // showFlutterToast(Colors.indigo, kSecondaryColor, kSecondaryColor,
@@ -464,7 +463,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       } else if (result == 'phone') {
         showFlutterToast(kRColor, kSecondaryColor, kSecondaryColor,
             _userController.msgRegistered, Icons.close);
-        // phoneEditingController.text = "";
         nodePhone.requestFocus();
         setState(() {
           colorPhone = false;
