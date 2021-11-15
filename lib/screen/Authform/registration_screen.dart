@@ -431,9 +431,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       setState(() {
         isApiCallProcess = true;
       });
-
-      var result = await _userController.fetchCheckRegisterResult(
-          userName, phone.toString());
+      String fPhone = "+855$phone";
+      var result =
+          await _userController.fetchCheckRegisterResult(userName, fPhone);
       print(result);
       if (result == "true") {
         // showFlutterToast(Colors.indigo, kSecondaryColor, kSecondaryColor,
@@ -444,7 +444,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (c) => OTPScreen(
-              phone: "+855$phone",
+              phone: fPhone,
               userName: userName,
               password: password,
             ),

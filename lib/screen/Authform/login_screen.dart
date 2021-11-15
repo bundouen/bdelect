@@ -387,7 +387,7 @@ class _LoginScreenState extends State<LoginScreen> {
         print(_userController.box.read('logged'));
 
         Get.delete<ProductController>();
-        Get.offAndToNamed(HomeView.routName);
+        Get.offNamedUntil(HomeView.routName, (route) => false);
       } else if (loggedStatus == "erroruser") {
         showFlutterToast(kRColor, kSecondaryColor, kSecondaryColor,
             _userController.msgLoggedIn, Icons.close);
@@ -425,6 +425,4 @@ class _LoginScreenState extends State<LoginScreen> {
         // positionedToastBuilder: (context, child) =>
         //     Positioned(child: child, top: 150, left: 0, right: 0),
       );
-
-  
 }

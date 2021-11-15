@@ -18,16 +18,18 @@ class UserController extends GetxController {
   void onInit() {
     super.onInit();
   }
+
   Future<String> fetchCheckRegisterResult(
     String userName,
     String phone,
-    
   ) async {
     try {
       var resp = await _userService.checkRegisterResult(
         userName,
         phone,
       );
+      print(phone);
+
       if (resp == 'true') {
         msgRegistered = "​បង្កើតគនេយ្យបានជោគជ័យ";
         return 'true';
