@@ -55,13 +55,13 @@ class ImageSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () {
-        if (sliderController.isLoading.value)
-          return Center(
-            child: CupertinoActivityIndicator(
-              animating: true,
-              radius: 10,
-            ),
-          );
+        // if (sliderController.isLoading.value)
+        //   return Center(
+        //     child: CupertinoActivityIndicator(
+        //       animating: true,
+        //       radius: 10,
+        //     ),
+        //   );
         return Stack(
           children: [
             CarouselSlider(

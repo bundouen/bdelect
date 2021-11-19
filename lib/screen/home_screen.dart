@@ -74,225 +74,220 @@ class _HomeViewState extends State<HomeView> {
     return Container(
       child: Obx(
         () {
-         if (controller.isLoading.value)
-          // return Center(
-          //   child: CupertinoActivityIndicator(
-          //     animating: true,
-          //     radius: 10,
-          //   ),
-          // );
-          return HomeShrimmerScreen();
-        else
-
-          return Scaffold(
-            backgroundColor: kSecondaryColor,
-            appBar: AppBar(
-              title: Text(
-                'ផ្សារអេឡិចត្រូនិច',
-                // style: TextStyle(color: Colors.red, fontFamily: "KhmerOSmuol"),
-                style: TextStyle(
-                  color: kPrimaryColor,
-                  fontFamily: khmerMoul,
-                  fontSize: 22,
-                  package: packageKhmer,
-                ),
-              ),
-              actions: [
-                seachIcon(
-                  Icon(
-                    Icons.search,
-                    color: Colors.amber,
+          if (controller.isLoading.value)
+            return HomeShrimmerScreen();
+          else
+            return Scaffold(
+              backgroundColor: kSecondaryColor,
+              appBar: AppBar(
+                title: Text(
+                  'ផ្សារអេឡិចត្រូនិច',
+                  // style: TextStyle(color: Colors.red, fontFamily: "KhmerOSmuol"),
+                  style: TextStyle(
+                    color: kPrimaryColor,
+                    fontFamily: khmerMoul,
+                    fontSize: 22,
+                    package: packageKhmer,
                   ),
                 ),
-                shoppingCartIcon(
-                  Icon(
-                    Icons.shopping_cart,
-                    color: Colors.red,
-                  ),
-                ),
-                IconButton(
-                    onPressed: () {
-                      userController.getLogOut();
-                    },
-                    icon: Icon(
-                      Icons.logout,
-                      color: Colors.red,
-                    ))
-              ],
-            ),
-            body: NotificationListener<UserScrollNotification>(
-              onNotification: (notification) {
-                if (notification.direction == ScrollDirection.forward) {
-                  setState(() {
-                    isFabVisible = 1;
-                  });
-                } else if (notification.direction == ScrollDirection.reverse) {
-                  setState(() {
-                    isFabVisible = 0;
-                  });
-                }
-                return true;
-              },
-              child: Container(
-                color: kSecondaryColor,
-                child: SmartRefresher(
-                  enablePullUp: true,
-                  controller: controller.refreshController,
-                  header: WaterDropHeader(
-                    waterDropColor: kPrimaryColor,
-                    complete: Icon(
-                      Icons.verified,
-                      color: kBColor,
+                actions: [
+                  seachIcon(
+                    Icon(
+                      Icons.search,
+                      color: Colors.amber,
                     ),
                   ),
-                  // header: WaterDropMaterialHeader(),
-                  footer: CustomFooter(
-                    builder: (BuildContext context, LoadStatus? mode) {
-                      Widget body;
-                      if (mode == LoadStatus.loading) {
-                        body = CupertinoActivityIndicator();
-                      } else if (mode == LoadStatus.failed) {
-                        body = Text(
-                          "អរគុណច្រើន",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: khmerSiemreap,
-                              package: packageKhmer,
-                              color: kPrimaryColor),
-                        );
-                      } else {
-                        body = Text("",
+                  shoppingCartIcon(
+                    Icon(
+                      Icons.shopping_cart,
+                      color: Colors.red,
+                    ),
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        userController.getLogOut();
+                      },
+                      icon: Icon(
+                        Icons.logout,
+                        color: Colors.red,
+                      ))
+                ],
+              ),
+              body: NotificationListener<UserScrollNotification>(
+                onNotification: (notification) {
+                  if (notification.direction == ScrollDirection.forward) {
+                    setState(() {
+                      isFabVisible = 1;
+                    });
+                  } else if (notification.direction ==
+                      ScrollDirection.reverse) {
+                    setState(() {
+                      isFabVisible = 0;
+                    });
+                  }
+                  return true;
+                },
+                child: Container(
+                  color: kSecondaryColor,
+                  child: SmartRefresher(
+                    enablePullUp: true,
+                    controller: controller.refreshController,
+                    header: WaterDropHeader(
+                      waterDropColor: kPrimaryColor,
+                      complete: Icon(
+                        Icons.verified,
+                        color: kBColor,
+                      ),
+                    ),
+                    // header: WaterDropMaterialHeader(),
+                    footer: CustomFooter(
+                      builder: (BuildContext context, LoadStatus? mode) {
+                        Widget body;
+                        if (mode == LoadStatus.loading) {
+                          body = CupertinoActivityIndicator();
+                        } else if (mode == LoadStatus.failed) {
+                          body = Text(
+                            "អរគុណច្រើន",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontFamily: ks,
-                                color: Colors.red[200]));
+                                fontFamily: khmerSiemreap,
+                                package: packageKhmer,
+                                color: kPrimaryColor),
+                          );
+                        } else {
+                          body = Text("",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: ks,
+                                  color: Colors.red[200]));
+                        }
+                        return Container(
+                          height: 55.0,
+                          child: Center(child: body),
+                        );
+                      },
+                    ),
+                    onRefresh: () async {
+                      final result =
+                          await controller.fetchProductData(isRefresh: true);
+                      // final resultGroupBrand = await controller.fetchProductAll();
+                      // final resultSlider = await sliderController.fechSliders();
+                      if (result) {
+                        controller.refreshController.refreshCompleted();
+                        controller.fetchProductAll();
+                        sliderController.fechSliders();
+                      } else {
+                        controller.refreshController.refreshFailed();
                       }
-                      return Container(
-                        height: 55.0,
-                        child: Center(child: body),
-                      );
                     },
-                  ),
-                  onRefresh: () async {
-                    final result =
-                        await controller.fetchProductData(isRefresh: true);
-                    // final resultGroupBrand = await controller.fetchProductAll();
-                    // final resultSlider = await sliderController.fechSliders();
-                    if (result) {
-                      controller.refreshController.refreshCompleted();
-                      controller.fetchProductAll();
-                      sliderController.fechSliders();
-                    } else {
-                      controller.refreshController.refreshFailed();
-                    }
-                  },
-                  onLoading: () async {
-                    final result =
-                        await controller.fetchProductData(isRefresh: false);
-                    if (result) {
-                      controller.refreshController.loadComplete();
-                    } else {
-                      controller.refreshController.loadFailed();
-                    }
-                  },
-                  child: ListView(
-                    controller: _scrollController,
-                    children: [
-                      Container(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 3),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                child: ImageSlider(),
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.only(top: 8, left: 8),
-                                    child: Text(
-                                      "គ្រុមទំនិញ",
-                                      style: TextStyle(
-                                        fontFamily: khmerMoul,
-                                        package: packageKhmer,
-                                        fontSize: 14,
-                                        color: kBColor,
-                                      ),
-                                    ),
-                                  ),
-                                  GroupProduct(groupList, controller),
-                                ],
-                              ),
-                              Divider(
-                                height: 2,
-                              ),
-                              SizedBox(
-                                height: 8,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    bottom: 8, left: 8, right: 8),
-                                child: Column(
+                    onLoading: () async {
+                      final result =
+                          await controller.fetchProductData(isRefresh: false);
+                      if (result) {
+                        controller.refreshController.loadComplete();
+                      } else {
+                        controller.refreshController.loadFailed();
+                      }
+                    },
+                    child: ListView(
+                      controller: _scrollController,
+                      children: [
+                        Container(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 3),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: ImageSlider(),
+                                ),
+                                Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      "ម៉ាកយីហោ",
-                                      style: TextStyle(
-                                        fontFamily: khmerMoul,
-                                        package: packageKhmer,
-                                        fontSize: 14,
-                                        color: kBColor,
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 8, left: 8),
+                                      child: Text(
+                                        "គ្រុមទំនិញ",
+                                        style: TextStyle(
+                                          fontFamily: khmerMoul,
+                                          package: packageKhmer,
+                                          fontSize: 14,
+                                          color: kBColor,
+                                        ),
                                       ),
                                     ),
-                                    BrandView(brandList, controller),
+                                    GroupProduct(groupList, controller),
                                   ],
                                 ),
-                              ),
-                              Divider(
-                                height: 2,
-                              ),
-                              SizedBox(
-                                height: 8,
-                              ),
-                              ProductView(
-                                controller: controller,
-                                productList: productList,
-                                khmFonts: khmerSiemreap,
-                              ),
-                            ],
+                                Divider(
+                                  height: 2,
+                                ),
+                                SizedBox(
+                                  height: 8,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      bottom: 8, left: 8, right: 8),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "ម៉ាកយីហោ",
+                                        style: TextStyle(
+                                          fontFamily: khmerMoul,
+                                          package: packageKhmer,
+                                          fontSize: 14,
+                                          color: kBColor,
+                                        ),
+                                      ),
+                                      BrandView(brandList, controller),
+                                    ],
+                                  ),
+                                ),
+                                Divider(
+                                  height: 2,
+                                ),
+                                SizedBox(
+                                  height: 8,
+                                ),
+                                ProductView(
+                                  controller: controller,
+                                  productList: productList,
+                                  khmFonts: khmerSiemreap,
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      )
-                    ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            floatingActionButton: AnimatedOpacity(
-              duration: Duration(seconds: 1),
-              opacity: isFabVisible,
-              child: Container(
-                height: 30,
-                child: FloatingActionButton(
-                  backgroundColor: kPrimaryColor,
-                  elevation: 0,
-                  onPressed: () {
-                    _scrollController.animateTo(
-                      0,
-                      duration: Duration(seconds: 1),
-                      curve: Curves.easeIn,
-                    );
-                  },
-                  child: Icon(
-                    Icons.arrow_upward,
+              floatingActionButton: AnimatedOpacity(
+                duration: Duration(seconds: 1),
+                opacity: isFabVisible,
+                child: Container(
+                  height: 30,
+                  child: FloatingActionButton(
+                    backgroundColor: kPrimaryColor,
+                    elevation: 0,
+                    onPressed: () {
+                      _scrollController.animateTo(
+                        0,
+                        duration: Duration(seconds: 1),
+                        curve: Curves.easeIn,
+                      );
+                    },
+                    child: Icon(
+                      Icons.arrow_upward,
+                    ),
                   ),
                 ),
               ),
-            ),
-          );
+            );
         },
       ),
     );

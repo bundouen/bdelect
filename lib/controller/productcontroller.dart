@@ -25,7 +25,7 @@ class ProductController extends GetxController {
   var totalPages = 0;
   var isLoadedProdName = true.obs;
 
-   RefreshController refreshController =
+  RefreshController refreshController =
       RefreshController(initialRefresh: false);
 
   @override
@@ -37,7 +37,6 @@ class ProductController extends GetxController {
     if (box.read('allProduct') != null) {
       productAll.assignAll(box.read('allProduct'));
     }
-    print(isLoading.value);
     super.onInit();
     // fetchProductCategoryByGroupId();
   }
@@ -46,6 +45,7 @@ class ProductController extends GetxController {
   Future<bool> fetchProductData({bool isRefresh = false}) async {
     if (isRefresh) {
       curentPage = 1;
+      isLoading(true);
     } else {
       if (curentPage >= totalPages) {
         refreshController.loadNoData();
@@ -143,6 +143,7 @@ class ProductController extends GetxController {
 
   fechProductByName(String prodName) {
     if (productAll.length != 0) {
+      isLoading(true);
       var productNameList =
           productAll.where((pro) => pro.productName == prodName).toList();
       productByName.clear();
