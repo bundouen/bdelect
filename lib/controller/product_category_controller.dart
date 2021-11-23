@@ -70,6 +70,7 @@ class ProductCategoryController extends GetxController {
   }) async {
     if (isRefresh) {
       curentPage = 1;
+
     } else {
       if (curentPage >= totalPages) {
         refreshController.loadNoData();

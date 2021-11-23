@@ -1,5 +1,6 @@
 import 'package:bdelect/controller/slidercontroller.dart';
 import 'package:bdelect/controller/user_controller.dart';
+import 'package:bdelect/widget/floating_icon.dart';
 import 'package:bdelect/widget/home_shrimmer_screen.dart';
 
 import 'package:flutter/rendering.dart';
@@ -266,27 +267,9 @@ class _HomeViewState extends State<HomeView> {
                   ),
                 ),
               ),
-              floatingActionButton: AnimatedOpacity(
-                duration: Duration(seconds: 1),
-                opacity: isFabVisible,
-                child: Container(
-                  height: 30,
-                  child: FloatingActionButton(
-                    backgroundColor: kPrimaryColor,
-                    elevation: 0,
-                    onPressed: () {
-                      _scrollController.animateTo(
-                        0,
-                        duration: Duration(seconds: 1),
-                        curve: Curves.easeIn,
-                      );
-                    },
-                    child: Icon(
-                      Icons.arrow_upward,
-                    ),
-                  ),
-                ),
-              ),
+              floatingActionButton: FloatingIcon(
+                  isFabVisible: isFabVisible,
+                  scrollController: _scrollController),
             );
         },
       ),

@@ -364,6 +364,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             opacity: 0.3,
             child: Center(
               child: SingleChildScrollView(
+                reverse: true,
                 child: Container(
                   color: kSecondaryColor,
                   child: Padding(

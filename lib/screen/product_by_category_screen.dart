@@ -2,10 +2,12 @@ import 'package:bdelect/constants.dart';
 import 'package:bdelect/controller/categoryController.dart';
 import 'package:bdelect/controller/product_category_controller.dart';
 import 'package:bdelect/controller/user_controller.dart';
+
 import 'package:bdelect/widget/product_by_group_view.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -21,15 +23,15 @@ class ProductByCategoryScreen extends StatefulWidget {
 }
 
 class _ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
-  var id = Get.arguments;
+  // var id = Get.arguments;
   final CategoryController categoryController = Get.find<CategoryController>();
   final UserController userController = Get.find<UserController>();
+  final ProductCategoryController productCategoryController =
+      Get.put(ProductCategoryController(categoryId: Get.arguments));
+
   @override
   Widget build(BuildContext context) {
-    final ProductCategoryController productCategoryController =
-        Get.put(ProductCategoryController(categoryId: id));
-
-    var cagetegoryList = categoryController.fechCategoryById(id);
+    var cagetegoryList = categoryController.fechCategoryById(Get.arguments);
     productCategoryController.fetchProductByCategoryId(isRefresh: true);
     var productByCategoryList = productCategoryController.productByCaegoryList;
     // String csrfToken = userController.csrfTokenData.value;
@@ -176,30 +178,6 @@ class _ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Column(
-                      //   crossAxisAlignment: CrossAxisAlignment.start,
-                      //   children: [
-                      // Padding(
-                      //   padding: const EdgeInsets.only(top: 8, left: 8),
-                      //   child: Text(
-                      //     "ប្រភេទទំនិញ",
-                      //     style: TextStyle(
-                      //       fontFamily: khmerMoul,
-                      //       package: packageKhmer,
-                      //       fontSize: 14,
-                      //       color: kBColor,
-                      //     ),
-                      //   ),
-                      // ),
-
-                      //   ],
-                      // ),
-                      // SizedBox(
-                      //   height: 8,
-                      // ),
-                      // Divider(
-                      //   height: 2,
-                      // ),
                       SizedBox(
                         height: 8,
                       ),
