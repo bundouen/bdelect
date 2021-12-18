@@ -1,3 +1,4 @@
+import 'package:bdelect/controller/cartController.dart';
 import 'package:bdelect/controller/user_controller.dart';
 
 import '../controller/brandcontroller.dart';
@@ -47,6 +48,9 @@ class HomeBinding extends Bindings {
       UserController(),
       permanent: true,
     );
-    // Get.lazyPut(() => UserController(), fenix: true);
+    Get.put<CartController>(
+      CartController(),
+      permanent: true,
+    );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:bdelect/controller/cartController.dart';
 import 'package:bdelect/controller/slidercontroller.dart';
 import 'package:bdelect/controller/user_controller.dart';
 import 'package:bdelect/widget/floating_icon.dart';
@@ -28,12 +29,16 @@ class _HomeViewState extends State<HomeView> {
   final ProductController controller = Get.find<ProductController>();
   final SliderController sliderController = Get.find<SliderController>();
   final UserController userController = Get.find<UserController>();
+  final CartController cartController = Get.find<CartController>();
+  var isLoggedIn = false;
 
   double isFabVisible = 0;
   ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
+    // var userId = userController.box.read("logged")['user']['id'];
+    // cartController.fechCarts(userId);
     isFabVisible = 0;
     _scrollController = ScrollController();
     _scrollController.addListener(listentController);
@@ -60,7 +65,7 @@ class _HomeViewState extends State<HomeView> {
   void dispose() {
     _scrollController.dispose();
     controller.refreshController.dispose();
-    userController.dispose();
+    // userController.dispose();
     super.dispose();
   }
 
@@ -71,6 +76,17 @@ class _HomeViewState extends State<HomeView> {
     var groupList = controller.groupList;
     var brandList = controller.brandList;
     // String csrfToken = userController.csrfTokenData.value;
+    if (userController.box.read("logged") != null) {
+      var userId = userController.box.read("logged")['user']['id'];
+      cartController.fechCarts(userId);
+      setState(() {
+        isLoggedIn = true;
+      });
+    } else {
+      setState(() {
+        isLoggedIn = false;
+      });
+    }
 
     return Container(
       child: Obx(
@@ -98,11 +114,30 @@ class _HomeViewState extends State<HomeView> {
                       color: Colors.amber,
                     ),
                   ),
-                  shoppingCartIcon(
-                    Icon(
-                      Icons.shopping_cart,
-                      color: Colors.red,
-                    ),
+                  Stack(
+                    children: [
+                      shoppingCartIcon(
+                        Icon(
+                          Icons.shopping_cart,
+                          color: Colors.red,
+                        ),
+                      ),
+                      if (isLoggedIn)
+                        Positioned(
+                          top: 3,
+                          left: 25,
+                          child: Container(
+                            alignment: Alignment.center,
+                            child: Text('${cartController.cartItems.length}'),
+                            width: 18,
+                            height: 18,
+                            decoration: BoxDecoration(
+                              color: Colors.blue,
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                          ),
+                        )
+                    ],
                   ),
                   IconButton(
                       onPressed: () {

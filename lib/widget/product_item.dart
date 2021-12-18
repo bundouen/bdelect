@@ -1,6 +1,8 @@
+import 'package:bdelect/controller/cartController.dart';
 import 'package:bdelect/controller/user_controller.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -42,6 +44,7 @@ class _ProductItemState extends State<ProductItem> {
   @override
   Widget build(BuildContext context) {
     final UserController userController = Get.find<UserController>();
+    final CartController cartController = Get.find<CartController>();
 
     double _top;
     if (widget.productList.discount > 0) {
@@ -134,11 +137,18 @@ class _ProductItemState extends State<ProductItem> {
                       IconButton(
                         onPressed: () {
                           if (userController.box.read('logged') != null) {
+                            // print(userController.box.read('logged')['user']['id']);
+                            var userId =
+                                userController.box.read('logged')['user']['id'];
+                            var productId = widget.productList.id;
+
+                            cartController.addToCart(1, userId, productId);
+
                             showFlutterToast(
                                 Colors.blue,
                                 kSecondaryColor,
                                 kSecondaryColor,
-                                "Can access",
+                                "${widget.productList.productName}",
                                 Icons.access_time);
                           } else {
                             showFlutterToast(

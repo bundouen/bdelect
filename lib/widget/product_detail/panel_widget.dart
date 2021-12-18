@@ -5,7 +5,6 @@ import 'package:bdelect/model/product.dart';
 import 'package:bdelect/widget/product_detail/panel_header_widget.dart';
 import 'package:bdelect/widget/product_detail/product_by_catagory.dart';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

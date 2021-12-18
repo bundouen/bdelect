@@ -15,8 +15,7 @@ Widget shoppingCartIcon(Icon icon) {
 
       child: ClipOval(
         child: Material(
-          color: Colors.white, // button color
-
+          color: Colors.white,
           child: InkWell(
             splashColor: Colors.green, // splash color
             onTap: () async {

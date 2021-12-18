@@ -1,6 +1,5 @@
-
 import 'package:bdelect/widget/product_detail/product_detail_view.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -16,7 +15,6 @@ class ProductView extends StatelessWidget {
     required this.controller,
     required this.productList,
     required this.khmFonts,
- 
   }) : super(key: key);
 
   final ProductController controller;
@@ -36,9 +34,9 @@ class ProductView extends StatelessWidget {
         //   //     radius: 10,
         //   //   ),
         //   // );
-      
+
         // else
-       
+
         return StaggeredGridView.countBuilder(
           mainAxisSpacing: 5,
           crossAxisSpacing: 5,

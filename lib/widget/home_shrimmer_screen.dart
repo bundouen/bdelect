@@ -3,7 +3,7 @@ import 'package:bdelect/constants.dart';
 import 'package:bdelect/widget/search_icon.dart';
 import 'package:bdelect/widget/shopping_cart.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
