@@ -66,7 +66,7 @@ class _HomeViewState extends State<HomeView> {
   void dispose() {
     _scrollController.dispose();
     controller.refreshController.dispose();
-    userController.dispose();
+    // userController.dispose();
     controller.dispose();
     super.dispose();
   }
