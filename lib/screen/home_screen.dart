@@ -3,6 +3,7 @@ import 'package:bdelect/controller/slidercontroller.dart';
 import 'package:bdelect/controller/user_controller.dart';
 import 'package:bdelect/widget/floating_icon.dart';
 import 'package:bdelect/widget/home_shrimmer_screen.dart';
+import 'package:bdelect/widget/side_drawer_navigation.dart';
 
 import 'package:flutter/rendering.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -65,7 +66,8 @@ class _HomeViewState extends State<HomeView> {
   void dispose() {
     _scrollController.dispose();
     controller.refreshController.dispose();
-    // userController.dispose();
+    userController.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -75,7 +77,7 @@ class _HomeViewState extends State<HomeView> {
     var productList = controller.lstTask;
     var groupList = controller.groupList;
     var brandList = controller.brandList;
-    // String csrfToken = userController.csrfTokenData.value;
+
     if (userController.box.read("logged") != null) {
       var userId = userController.box.read("logged")['user']['id'];
       cartController.fechCarts(userId);
@@ -93,17 +95,18 @@ class _HomeViewState extends State<HomeView> {
         () {
           if (controller.isLoading.value)
             return HomeShrimmerScreen();
-          else
+          else {
             return Scaffold(
               backgroundColor: kSecondaryColor,
               appBar: AppBar(
+                iconTheme: IconThemeData(color: kPrimaryColor),
                 title: Text(
                   'ផ្សារអេឡិចត្រូនិច',
                   // style: TextStyle(color: Colors.red, fontFamily: "KhmerOSmuol"),
                   style: TextStyle(
                     color: kPrimaryColor,
                     fontFamily: khmerMoul,
-                    fontSize: 22,
+                    fontSize: 17,
                     package: packageKhmer,
                   ),
                 ),
@@ -124,13 +127,16 @@ class _HomeViewState extends State<HomeView> {
                       ),
                       if (isLoggedIn)
                         Positioned(
-                          top: 3,
+                          top: 2,
                           left: 25,
                           child: Container(
                             alignment: Alignment.center,
-                            child: Text('${cartController.cartItems.length}'),
-                            width: 18,
-                            height: 18,
+                            child: Text(
+                              '${cartController.cartItems.length}',
+                              style: TextStyle(fontSize: 9),
+                            ),
+                            width: 17,
+                            height: 17,
                             decoration: BoxDecoration(
                               color: Colors.blue,
                               borderRadius: BorderRadius.circular(100),
@@ -139,16 +145,17 @@ class _HomeViewState extends State<HomeView> {
                         )
                     ],
                   ),
-                  IconButton(
-                      onPressed: () {
-                        userController.getLogOut();
-                      },
-                      icon: Icon(
-                        Icons.logout,
-                        color: Colors.red,
-                      ))
+                  // IconButton(
+                  //     onPressed: () {
+                  //       userController.getLogOut();
+                  //     },
+                  //     icon: Icon(
+                  //       Icons.logout,
+                  //       color: Colors.red,
+                  //     ),),
                 ],
               ),
+              drawer: SideDrawerNavigation(),
               body: NotificationListener<UserScrollNotification>(
                 onNotification: (notification) {
                   if (notification.direction == ScrollDirection.forward) {
@@ -306,6 +313,7 @@ class _HomeViewState extends State<HomeView> {
                   isFabVisible: isFabVisible,
                   scrollController: _scrollController),
             );
+          }
         },
       ),
     );
