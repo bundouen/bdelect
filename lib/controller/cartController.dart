@@ -23,7 +23,12 @@ class CartController extends GetxController {
   Future<void> fechCarts(int userId) async {
     var carts = await _cartService.getCart(userId);
     if (carts.length != 0) {
-      cartItems.value = (carts);
+      print("carts.length ${carts.length}");
+      print("cartItems.length ${cartItems.length}");
+      if (carts.length != cartItems.length) {
+        print("No get cart");
+        cartItems.value = (carts);
+      }
     } else {
       cartItems.value = [];
     }

@@ -1,4 +1,3 @@
-
 import 'package:firebase_phone_auth_handler/firebase_phone_auth_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,9 +27,9 @@ class MainScreen extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         // home: HomeView(),
-    
+
         initialRoute: HomeView.routName,
-    
+
         getPages: [
           GetPage(
               name: HomeView.routName,
@@ -64,7 +63,6 @@ class MainScreen extends StatelessWidget {
             name: RegistrationScreen.routeName,
             page: () => RegistrationScreen(),
           ),
-          
         ],
       ),
     );

@@ -44,6 +44,8 @@ class _HomeViewState extends State<HomeView> {
     isFabVisible = 0;
     _scrollController = ScrollController();
     _scrollController.addListener(listentController);
+    cartController.fechCarts(userId);
+
     super.initState();
   }
 
