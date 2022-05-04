@@ -78,9 +78,8 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
             FormHelper.inputFieldWidget(
               context,
-              const Icon(Icons.person),
+              const Icon(Icons.person).toString(),
               "username",
-              'User Name',
               (String onValidateVal) {
                 if (onValidateVal.isEmpty) {
                   return "User Name \t is not empty";
@@ -101,9 +100,9 @@ class _RegisterPageState extends State<RegisterPage> {
               padding: const EdgeInsets.only(top: 10.0),
               child: FormHelper.inputFieldWidget(
                 context,
-                const Icon(Icons.phone),
+                const Icon(Icons.phone).toString(),
                 "phone",
-                'Phone Number',
+    
                 (String onValidateVal) {
                   if (onValidateVal.isEmpty) {
                     return "Phone \t is not empty";
@@ -125,9 +124,9 @@ class _RegisterPageState extends State<RegisterPage> {
               padding: const EdgeInsets.only(top: 10.0),
               child: FormHelper.inputFieldWidget(
                 context,
-                const Icon(Icons.password),
+                const Icon(Icons.password).toString(),
                 "password",
-                'Password',
+                
                 (String onValidateVal) {
                   if (onValidateVal.isEmpty) {
                     return "Password \t is not empty";

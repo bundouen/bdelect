@@ -31,7 +31,8 @@ class _HomeViewState extends State<HomeView> {
   final SliderController sliderController = Get.find<SliderController>();
   final UserController userController = Get.find<UserController>();
   final CartController cartController = Get.find<CartController>();
-  var isLoggedIn = false;
+  int userId = 0;
+  bool isLoggedIn = true;
 
   double isFabVisible = 0;
   ScrollController _scrollController = ScrollController();
@@ -67,7 +68,7 @@ class _HomeViewState extends State<HomeView> {
     _scrollController.dispose();
     controller.refreshController.dispose();
     // userController.dispose();
-    controller.dispose();
+    // controller.dispose();
     super.dispose();
   }
 
@@ -77,18 +78,30 @@ class _HomeViewState extends State<HomeView> {
     var productList = controller.lstTask;
     var groupList = controller.groupList;
     var brandList = controller.brandList;
-
     if (userController.box.read("logged") != null) {
-      var userId = userController.box.read("logged")['user']['id'];
       cartController.fechCarts(userId);
       setState(() {
         isLoggedIn = true;
+        userId = userController.box.read("logged")['user']['id'];
       });
     } else {
       setState(() {
         isLoggedIn = false;
+        userId = 0;
       });
     }
+
+    // if (userController.box.read("logged") != null) {
+    //   userId = userController.box.read("logged")['user']['id'];
+    //   cartController.fechCarts(userId!);
+    //   setState(() {
+    //     isLoggedIn = true;
+    //   });
+    // } else {
+    //   setState(() {
+    //     isLoggedIn = false;
+    //   });
+    // }
 
     return Container(
       child: Obx(

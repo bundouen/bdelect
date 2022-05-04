@@ -27,5 +27,6 @@ class CartController extends GetxController {
     } else {
       cartItems.value = [];
     }
+    print(cartItems.length);
   }
 }

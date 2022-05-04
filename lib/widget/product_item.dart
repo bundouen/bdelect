@@ -1,5 +1,6 @@
 import 'package:bdelect/controller/cartController.dart';
 import 'package:bdelect/controller/user_controller.dart';
+import 'package:bdelect/screen/Authform/login_screen.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -151,12 +152,13 @@ class _ProductItemState extends State<ProductItem> {
                                 "${widget.productList.productName}",
                                 Icons.access_time);
                           } else {
-                            showFlutterToast(
-                                Colors.red,
-                                kSecondaryColor,
-                                kSecondaryColor,
-                                "Not access",
-                                Icons.access_time);
+                            // showFlutterToast(
+                            //     Colors.red,
+                            //     kSecondaryColor,
+                            //     kSecondaryColor,
+                            //     "Not access",
+                            //     Icons.access_time);
+                            Get.toNamed(LoginScreen.routeName);
                           }
                         },
                         icon: Icon(Icons.shopping_cart),

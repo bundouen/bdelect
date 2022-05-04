@@ -233,6 +233,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           if (!regex.hasMatch(value)) {
             return ("លេខសម្ងាត់មិនត្រឹមត្រូវ(យ៉ាងតិច 6 អក្សរ)");
           }
+          return null;
         },
         onSaved: (value) {
           passwordEditingController.text = value!;

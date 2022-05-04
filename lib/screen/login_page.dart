@@ -80,10 +80,10 @@ class _LoginPageState extends State<LoginPage> {
             ),
             FormHelper.inputFieldWidget(
               context,
-              const Icon(Icons.person),
+              const Icon(Icons.person).toString(),
               "name",
-              'User Name',
-              (String onValidateVal) {
+              
+              ( onValidateVal) {
                 if (!onValidateVal.isNotEmpty) {
                   return "Email \t is not empty";
                 }
@@ -104,9 +104,9 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.only(top: 10.0),
               child: FormHelper.inputFieldWidget(
                 context,
-                const Icon(Icons.person),
+                const Icon(Icons.person).toString(),
                 "password",
-                'Password',
+                
                 (String onValidateVal) {
                   if (!onValidateVal.isNotEmpty) {
                     return "Password \t is not empty";
