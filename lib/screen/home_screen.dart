@@ -81,10 +81,10 @@ class _HomeViewState extends State<HomeView> {
     var groupList = controller.groupList;
     var brandList = controller.brandList;
     if (userController.box.read("logged") != null) {
-      cartController.fechCarts(userId);
       setState(() {
         isLoggedIn = true;
         userId = userController.box.read("logged")['user']['id'];
+        cartController.fechCarts(userId);
       });
     } else {
       setState(() {

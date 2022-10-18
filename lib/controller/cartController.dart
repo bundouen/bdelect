@@ -12,6 +12,7 @@ class CartController extends GetxController {
       var result = await _cartService.addTocart(quantity, userId, productId);
       if (result == true) {
         isAddedCart(true);
+        fechCarts(userId);
       } else {
         isAddedCart(false);
       }
