@@ -92,8 +92,11 @@ class _ProductDetailsState extends State<ProductDetails> {
             controller: panelController,
             // panelBuilder: (ScrollController scrollController)=>
             panel: PanelWidget(
+              productList: product.id,
               categoryController: categoryController,
-              onClickedAddCart: () {},
+              onClickedAddCart: () {
+          
+              },
               onClickedPanel: panelController.open,
               product: product,
             ),

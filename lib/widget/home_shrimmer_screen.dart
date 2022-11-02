@@ -54,7 +54,7 @@ class HomeShrimmerScreen extends StatelessWidget {
             style: TextStyle(
               color: kPrimaryColor,
               fontFamily: khmerMoul,
-              fontSize: 22,
+              fontSize: 14,
               package: packageKhmer,
             ),
           ),
@@ -125,7 +125,7 @@ class HomeShrimmerScreen extends StatelessWidget {
                               style: TextStyle(
                                 fontFamily: khmerMoul,
                                 package: packageKhmer,
-                                fontSize: 14,
+                                fontSize: 12,
                                 color: kBColor,
                               ),
                             ),
@@ -210,7 +210,7 @@ class HomeShrimmerScreen extends StatelessWidget {
                               style: TextStyle(
                                 fontFamily: khmerMoul,
                                 package: packageKhmer,
-                                fontSize: 14,
+                                fontSize: 12,
                                 color: kBColor,
                               ),
                             ),

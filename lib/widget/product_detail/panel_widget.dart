@@ -6,10 +6,17 @@ import 'package:bdelect/widget/product_detail/panel_header_widget.dart';
 import 'package:bdelect/widget/product_detail/product_by_catagory.dart';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+
+// import '../../controller/cartController.dart';
+// import '../../controller/user_controller.dart';
+// import '../../screen/Authform/login_screen.dart';
+import '../custom_toast.dart';
 
 class PanelWidget extends StatefulWidget {
   final Datum product;
+  final productList;
   final VoidCallback onClickedPanel;
   final VoidCallback onClickedAddCart;
   final ProductCategoryController categoryController;
@@ -19,6 +26,7 @@ class PanelWidget extends StatefulWidget {
     required this.onClickedPanel,
     required this.onClickedAddCart,
     required this.categoryController,
+    required this.productList,
     Key? key,
   }) : super(key: key);
 
@@ -27,6 +35,22 @@ class PanelWidget extends StatefulWidget {
 }
 
 class _PanelWidgetState extends State<PanelWidget> {
+  final fToast = FToast();
+  @override
+  void initState() {
+    fToast.init(context);
+    super.initState();
+  }
+
+  void showFlutterToast(Color backgColor, Color colorTxt, Color colorIcon,
+          String text, IconData iconData) =>
+      fToast.showToast(
+        child: customFToast(backgColor, colorTxt, colorIcon, text, iconData),
+        gravity: ToastGravity.TOP,
+        // positionedToastBuilder: (context, child) =>
+        //     Positioned(child: child, top: 150, left: 0, right: 0),
+      );
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -42,6 +66,8 @@ class _PanelWidgetState extends State<PanelWidget> {
   }
 
   Widget buildProfile() {
+    // final UserController userController = Get.find<UserController>();
+    // final CartController cartController = Get.find<CartController>();
     return Container(
       // color: kSecondaryColor,
       padding: EdgeInsets.only(
@@ -82,7 +108,25 @@ class _PanelWidgetState extends State<PanelWidget> {
                       padding: const EdgeInsets.only(top: 10),
                       child: PanelHeaderWidget(
                         product: widget.product,
-                        onClickedAddCart: widget.onClickedAddCart,
+                        onClickedAddCart: () {
+                          // if (userController.box.read('logged') != null) {
+                          //   // print(userController.box.read('logged')['user']['id']);
+                          //   var userId =
+                          //       userController.box.read('logged')['user']['id'];
+                          //   var productId = widget.productList.id;
+
+                          //   cartController.addToCart(1, userId, productId);
+
+                          //   showFlutterToast(
+                          //       Colors.blue,
+                          //       kSecondaryColor,
+                          //       kSecondaryColor,
+                          //       "${widget.productList.productName}",
+                          //       Icons.access_time);
+                          // } else {
+                          //   Get.toNamed(LoginScreen.routeName);
+                          // }
+                        },
                       ),
                     ),
                     Divider(
@@ -100,7 +144,7 @@ class _PanelWidgetState extends State<PanelWidget> {
                       "ប្រភេទដូចគ្នា (${widget.product.category.category})",
                       style: TextStyle(
                         fontFamily: khmerSiemreap,
-                        fontSize: 16,
+                        fontSize: 14,
                         package: packageKhmer,
                         fontWeight: FontWeight.bold,
                         color: kPrimaryColor,
@@ -140,7 +184,7 @@ class _PanelWidgetState extends State<PanelWidget> {
             "ព៌តមានលម្អិត៖",
             style: TextStyle(
               fontFamily: khmerMoul,
-              fontSize: 15,
+              fontSize: 14,
               color: kPrimaryColor,
               package: packageKhmer,
               // fontWeight: FontWeight.bold,
@@ -151,7 +195,7 @@ class _PanelWidgetState extends State<PanelWidget> {
             product.productDetail,
             style: TextStyle(
               fontFamily: khmerSiemreap,
-              fontSize: 12,
+              fontSize: 10,
               package: packageKhmer,
             ),
           ),

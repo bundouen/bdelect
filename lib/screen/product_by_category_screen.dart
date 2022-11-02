@@ -80,7 +80,7 @@ class _ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
                 style: TextStyle(
                   fontFamily: khmerMoul,
                   package: packageKhmer,
-                  fontSize: 14,
+                  fontSize: 12,
                   color: kBColor,
                 ),
               ),

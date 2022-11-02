@@ -121,7 +121,7 @@ class _HomeViewState extends State<HomeView> {
                   style: TextStyle(
                     color: kPrimaryColor,
                     fontFamily: khmerMoul,
-                    fontSize: 17,
+                    fontSize: 14,
                     package: packageKhmer,
                   ),
                 ),
@@ -266,11 +266,11 @@ class _HomeViewState extends State<HomeView> {
                                       padding: const EdgeInsets.only(
                                           top: 8, left: 8),
                                       child: Text(
-                                        "គ្រុមទំនិញ",
+                                        "ក្រុមទំនិញ",
                                         style: TextStyle(
                                           fontFamily: khmerMoul,
                                           package: packageKhmer,
-                                          fontSize: 14,
+                                          fontSize: 12,
                                           color: kBColor,
                                         ),
                                       ),
@@ -296,7 +296,7 @@ class _HomeViewState extends State<HomeView> {
                                         style: TextStyle(
                                           fontFamily: khmerMoul,
                                           package: packageKhmer,
-                                          fontSize: 14,
+                                          fontSize: 12,
                                           color: kBColor,
                                         ),
                                       ),

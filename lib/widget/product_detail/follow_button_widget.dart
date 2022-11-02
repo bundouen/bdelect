@@ -10,20 +10,30 @@ class FollowButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => TextButton(
-        onPressed: onClicked,
+        onPressed: () {},
         child: Card(
             color: Colors.red,
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
             child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Text(
-                "ADD TO CART",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
+              padding: const EdgeInsets.all(5.0),
+              child: Row(
+                children: [
+                  IconButton(
+                      onPressed: onClicked,
+                      icon: Icon(
+                        Icons.shopping_cart,
+                        color: (Colors.white),
+                      )),
+                  // Text(
+                  //   "ADD TO CART",
+                  //   style: TextStyle(
+                  //     color: Colors.white,
+                  //     fontSize: 12,
+                  //     fontWeight: FontWeight.bold,
+                  //   ),
+                  // ),
+                ],
               ),
             )),
       );

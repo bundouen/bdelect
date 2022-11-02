@@ -68,7 +68,7 @@ class _ProductByGroupScreenState extends State<ProductByGroupScreen> {
                 style: TextStyle(
                   fontFamily: khmerMoul,
                   package: packageKhmer,
-                  fontSize: 14,
+                  fontSize: 12,
                   color: kBColor,
                 ),
               ),
@@ -176,7 +176,7 @@ class _ProductByGroupScreenState extends State<ProductByGroupScreen> {
                               style: TextStyle(
                                 fontFamily: khmerMoul,
                                 package: packageKhmer,
-                                fontSize: 14,
+                                fontSize: 12,
                                 color: kBColor,
                               ),
                             ),

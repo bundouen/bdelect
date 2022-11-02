@@ -70,7 +70,7 @@ class _ProductItemState extends State<ProductItem> {
                   child: Text(
                     widget.productList.productName,
                     style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 12,
                         fontWeight: FontWeight.bold,
                         fontFamily: khmerSiemreap,
                         package: packageKhmer,
@@ -118,23 +118,25 @@ class _ProductItemState extends State<ProductItem> {
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: kTextColor,
+                            fontSize: 12,
                             fontFamily: khmerSiemreap,
                             package: packageKhmer),
                       ),
-                      Text(
-                        widget.productList.discount > 0
-                            ? '\$${(widget.productList.price)}'
-                            : "",
-                        style: TextStyle(
-                            fontFamily: khmerSiemreap,
-                            package: packageKhmer,
-                            decoration: widget.productList.discount > 0
-                                ? TextDecoration.lineThrough
-                                : TextDecoration.none,
-                            color: widget.productList.discount > 0
-                                ? Colors.red
-                                : Colors.black12),
-                      ),
+                      // Text(
+                      //   widget.productList.discount > 0
+                      //       ? '\$${(widget.productList.price)}'
+                      //       : "",
+                      //   style: TextStyle(
+                      //       fontFamily: khmerSiemreap,
+                      //       package: packageKhmer,
+                      //       fontSize: 12,
+                      //       decoration: widget.productList.discount > 0
+                      //           ? TextDecoration.lineThrough
+                      //           : TextDecoration.none,
+                      //       color: widget.productList.discount > 0
+                      //           ? Colors.red
+                      //           : Colors.black12),
+                      // ),
                       IconButton(
                         onPressed: () {
                           if (userController.box.read('logged') != null) {
@@ -192,13 +194,33 @@ class _ProductItemState extends State<ProductItem> {
                     color: Colors.white,
                     fontFamily: khmerMoul,
                     package: packageKhmer,
-                    fontSize: 14,
+                    fontSize: 12,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
             ),
           ),
+          Positioned(
+            left: 100,
+            top: 5,
+            child:
+          Text(
+          widget.productList.discount > 0
+              ? '\$${(widget.productList.price)}'
+              : "",
+          style: TextStyle(
+              fontFamily: khmerSiemreap,
+              package: packageKhmer,
+              fontSize: 12,
+              decoration: widget.productList.discount > 0
+                  ? TextDecoration.lineThrough
+                  : TextDecoration.none,
+              color: widget.productList.discount > 0
+                  ? Colors.red
+                  : Colors.black12),
+        ), )
+        
         // Positioned(
         //   right: 5,
         //   top: 3,

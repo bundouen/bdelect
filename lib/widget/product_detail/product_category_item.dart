@@ -39,7 +39,7 @@ class ProductCategoryItem extends StatelessWidget {
                   child: Text(
                     productList.productName,
                     style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 12,
                         fontWeight: FontWeight.bold,
                         fontFamily: khmerSiemreap,
                         package: packageKhmer,
@@ -90,20 +90,20 @@ class ProductCategoryItem extends StatelessWidget {
                             fontFamily: khmerSiemreap,
                             package: packageKhmer),
                       ),
-                      Text(
-                        productList.discount > 0
-                            ? '\$${(productList.price)}'
-                            : "",
-                        style: TextStyle(
-                            fontFamily: khmerSiemreap,
-                            package: packageKhmer,
-                            decoration: productList.discount > 0
-                                ? TextDecoration.lineThrough
-                                : TextDecoration.none,
-                            color: productList.discount > 0
-                                ? Colors.red
-                                : Colors.black12),
-                      ),
+                      // Text(
+                      //   productList.discount > 0
+                      //       ? '\$${(productList.price)}'
+                      //       : "",
+                      //   style: TextStyle(
+                      //       fontFamily: khmerSiemreap,
+                      //       package: packageKhmer,
+                      //       decoration: productList.discount > 0
+                      //           ? TextDecoration.lineThrough
+                      //           : TextDecoration.none,
+                      //       color: productList.discount > 0
+                      //           ? Colors.red
+                      //           : Colors.black12),
+                      // ),
                       IconButton(
                         onPressed: () {},
                         icon: Icon(Icons.shopping_cart),
@@ -137,13 +137,30 @@ class ProductCategoryItem extends StatelessWidget {
                     color: Colors.white,
                     fontFamily: khmerMoul,
                     package: packageKhmer,
-                    fontSize: 14,
+                    fontSize: 12,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
             ),
           ),
+          Positioned(
+            left: 100,
+            top: 5,
+            child: Text(
+                        productList.discount > 0
+                            ? '\$${(productList.price)}'
+                            : "",
+                        style: TextStyle(
+                            fontFamily: khmerSiemreap,
+                            package: packageKhmer,
+                            decoration: productList.discount > 0
+                                ? TextDecoration.lineThrough
+                                : TextDecoration.none,
+                            color: productList.discount > 0
+                                ? Colors.red
+                                : Colors.black12),
+                      ),)
       ],
     );
   }
